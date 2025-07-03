@@ -1,14 +1,9 @@
 import express from "express";
-import { configDotenv } from "dotenv";
-
-configDotenv();
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
-
-const token = process.env.API_KEY;
 
 app.get("/", async (req, res) => {
 	res.send("success");
@@ -30,8 +25,12 @@ app.get("/webhook", async (req, res) => {
 
 app.post("/webhook", (req, res) => {
 	const body = req.body;
-    console.log(body)
-	console.log("Received webhook:", JSON.stringify(body, null, 2));
+    
+    console.log("Received webhook:", JSON.stringify(body, null, 2));
+    
+    const data = JSON.stringify(body, null, 2)[0];
+
+    console.log(data)
 
 	if (body.object) {
 		res.sendStatus(200);

@@ -1,4 +1,8 @@
+import { configDotenv } from "dotenv";
 
+configDotenv();
+
+const token = process.env.API_KEY;
 
 async function sendWelcomeMessage() {
     const payload = {
