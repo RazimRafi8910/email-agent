@@ -6,41 +6,36 @@ configDotenv();
 const app = express();
 const PORT = 3000;
 
-const token = process.env.API_KEY
+const token = process.env.API_KEY;
 
 app.get("/", async (req, res) => {
-	const payload = {
-		messaging_product: "whatsapp",
-		to: "918848764715",
-		type: "template",
-		template: {
-			name: "hello_world",
-			language: {
-				code: "en_US",
-			},
-		},
-    };
-	const result =await fetch(
-		"https://graph.facebook.com/v22.0/714727608389125/messages",
-        {
-            method:"POST",
-            headers: {
-                'Authorization': `Bearer ${token}`,
-				"Content-Type": "application/json",
-			},
-			body:JSON.stringify(payload),
-		}
-    );
-    
-    const response = await result.json();
-    console.log(response);
-    res.send("success");
+	res.send("success");
 });
 
-app.get("/message", async (req, res) => {
-    console.log(req.ip)
-    res.send("done");
-})
+app.get("/webhook", async (req, res) => {
+	const VERIFY_TOKEN = "emailfromme";
+	const mode = req.query["hub.mode"];
+	const token = req.query["hub.verify_token"];
+	const challenge = req.query["hub.challenge"];
+	if (mode && token === VERIFY_TOKEN) {
+		console.log("Webhook verified");
+		res.status(200).send(challenge);
+	} else {
+		res.sendStatus(403);
+	}
+});
+
+app.post('/webhook', (req, res) => {
+  const body = req.body;
+
+  console.log('Received webhook:', JSON.stringify(body, null, 2));
+
+  if (body.object) {
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
+  }
+});
 
 app.listen(PORT, () => {
 	console.log(`Server is running on http://localhost:${PORT}`);
