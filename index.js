@@ -6,6 +6,8 @@ configDotenv();
 const app = express();
 const PORT = 3000;
 
+app.use(express.json()); // Must come before your routes
+
 const token = process.env.API_KEY;
 
 app.get("/", async (req, res) => {
