@@ -10,7 +10,7 @@ async function sendWelcomeMessage() {
 		to: "918848764715",
 		type: "template",
 		template: {
-			name: "hello_world",
+			name: "welcome",
 			language: {
 				code: "en_US",
 			},

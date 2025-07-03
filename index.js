@@ -26,21 +26,18 @@ app.get("/webhook", async (req, res) => {
 
 app.post("/webhook", async (req, res) => {
 	const body = req.body;
-
-	console.log("Received webhook:", JSON.stringify(body, null, 2));
-
-	const data = body.entry;
-
 	const entry = req.body.entry?.[0];
 	const change = entry?.changes?.[0];
 	const message = change?.value?.messages?.[0];
 
 	if (message && message.type === "text") {
 		const text = message.text?.body;
-		if (text == "Hi") {
+		if (text == "Hi" || text == "Hello") {
 			await sendWelcomeMessage();
 		}
 		console.log("Received message:", text);
+
+		//logic for LLM email creation
 	}
 
 	if (body.object) {
