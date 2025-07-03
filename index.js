@@ -25,16 +25,16 @@ app.get("/webhook", async (req, res) => {
 	}
 });
 
-app.post('/webhook', (req, res) => {
-  const body = req.body;
+app.post("/webhook", (req, res) => {
+	const body = req.body;
+    console.log(body)
+	console.log("Received webhook:", JSON.stringify(body, null, 2));
 
-  console.log('Received webhook:', JSON.stringify(body, null, 2));
-
-  if (body.object) {
-    res.sendStatus(200);
-  } else {
-    res.sendStatus(404);
-  }
+	if (body.object) {
+		res.sendStatus(200);
+	} else {
+		res.sendStatus(404);
+	}
 });
 
 app.listen(PORT, () => {
