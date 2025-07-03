@@ -18,27 +18,30 @@ app.get("/webhook", async (req, res) => {
 	if (mode && token === VERIFY_TOKEN) {
 		console.log("Webhook verified");
 		res.status(200).send(challenge);
-    } else {
-        console.log("webhook failed");
+	} else {
+		console.log("webhook failed");
 		res.sendStatus(403);
 	}
 });
 
-app.post("/webhook",async (req, res) => {
+app.post("/webhook", async (req, res) => {
 	const body = req.body;
-    
-    console.log("Received webhook:", JSON.stringify(body, null, 2));
-    
-    const data = body.entry;
 
-    const message = data[0].changes[0].messages[0].text.body || ""
+	console.log("Received webhook:", JSON.stringify(body, null, 2));
 
-    if (message == 'Hi') {
-        console.log('user hi');
-        await sendWelcomeMessage();
-    }
+	const data = body.entry;
 
-    console.log(data)
+	const entry = req.body.entry?.[0];
+	const change = entry?.changes?.[0];
+	const message = change?.value?.messages?.[0];
+
+	if (message && message.type === "text") {
+		const text = message.text?.body;
+		if (text == "Hi") {
+			await sendWelcomeMessage();
+		}
+		console.log("Received message:", text);
+	}
 
 	if (body.object) {
 		res.sendStatus(200);
