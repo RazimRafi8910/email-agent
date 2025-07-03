@@ -1,4 +1,5 @@
 import express from "express";
+import { sendWelcomeMessage } from "./messageService";
 
 const app = express();
 const PORT = 3000;
@@ -23,12 +24,19 @@ app.get("/webhook", async (req, res) => {
 	}
 });
 
-app.post("/webhook", (req, res) => {
+app.post("/webhook",async (req, res) => {
 	const body = req.body;
     
     console.log("Received webhook:", JSON.stringify(body, null, 2));
     
-    const data = body.entry.changes;
+    const data = body.entry;
+
+    const message = data[0].changes[0].messages[0].text.body || ""
+
+    if (message == 'Hi') {
+        console.log('user hi');
+        await sendWelcomeMessage();
+    }
 
     console.log(data)
 

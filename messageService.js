@@ -32,3 +32,5 @@ async function sendWelcomeMessage() {
     console.log(response);
     return response
 }
+
+export {sendWelcomeMessage}
