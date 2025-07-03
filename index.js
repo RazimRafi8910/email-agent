@@ -6,7 +6,7 @@ configDotenv();
 const app = express();
 const PORT = 3000;
 
-app.use(express.json()); // Must come before your routes
+app.use(express.json());
 
 const token = process.env.API_KEY;
 
@@ -22,7 +22,8 @@ app.get("/webhook", async (req, res) => {
 	if (mode && token === VERIFY_TOKEN) {
 		console.log("Webhook verified");
 		res.status(200).send(challenge);
-	} else {
+    } else {
+        console.log("webhook failed");
 		res.sendStatus(403);
 	}
 });
