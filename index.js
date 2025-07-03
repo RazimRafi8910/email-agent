@@ -1,5 +1,5 @@
 import express from "express";
-import { sendWelcomeMessage } from "./messageService";
+import { sendWelcomeMessage } from "./messageService.js";
 
 const app = express();
 const PORT = 3000;
