@@ -1,5 +1,8 @@
 import express from "express";
 import { sendWelcomeMessage } from "./messageService.js";
+import { configDotenv } from "dotenv";
+
+configDotenv();
 
 const app = express();
 const PORT = 3000;
