@@ -40,7 +40,7 @@ app.post("/webhook", async (req, res) => {
 			await sendWelcomeMessage();
 		} else {
 			//logic for LLM email creation
-			const response = generateEmail(text);
+			const response = await generateEmail(text);
 			console.log(response);
 		}
 		console.log("Received message:", text);
