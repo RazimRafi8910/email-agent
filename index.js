@@ -1,6 +1,7 @@
 import express from "express";
 import { sendWelcomeMessage } from "./messageService.js";
 import { configDotenv } from "dotenv";
+import { generateEmail } from "./geminAiService.js";
 
 configDotenv();
 
@@ -10,7 +11,7 @@ const PORT = 3000;
 app.use(express.json());
 
 app.get("/", async (req, res) => {
-	res.send("success");
+	res.send("server is running...");
 });
 
 app.get("/webhook", async (req, res) => {
@@ -35,12 +36,14 @@ app.post("/webhook", async (req, res) => {
 
 	if (message && message.type === "text") {
 		const text = message.text?.body;
-		if (text == "Hi" || text == "Hello") {
+		if (text == "Hi" || text == "Hello" || text.length < 15) {
 			await sendWelcomeMessage();
+		} else {
+			//logic for LLM email creation
+			const generateEmail = generateEmail(text);
+			console.log(generateEmail);
 		}
 		console.log("Received message:", text);
-
-		//logic for LLM email creation
 	}
 
 	if (body.object) {

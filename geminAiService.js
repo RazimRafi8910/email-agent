@@ -14,7 +14,7 @@ const systemInstruction = `You are a versatile email generator.
     subject:"subject of the email" - string,
     to:"reciver email address" - string,
     body:"body of the email" - string,
-    reciverName:"reciver name"(if provided) - string,
+    reciver:"reciver name or possition"(if provided) - string,
    }
    `
 
