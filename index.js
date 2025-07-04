@@ -1,7 +1,8 @@
 import express from "express";
-import { sendWelcomeMessage } from "./messageService.js";
+import { sendMessage, sendWelcomeMessage } from "./messageService.js";
 import { configDotenv } from "dotenv";
 import { generateEmail } from "./geminAiService.js";
+import { sendEmail } from "./mailService.js";
 
 configDotenv();
 
@@ -41,7 +42,11 @@ app.post("/webhook", async (req, res) => {
 		} else {
 			//logic for LLM email creation
 			const response = await generateEmail(text);
-			console.log(response.candidates[0].content.parts);
+			const status = await sendEmail(response.to, response.subject, response.body);
+			if (status) {
+				const resultMessage = `email sended to ${response.to} from your email \n email: \n ${response.body}`
+				await sendMessage(resultMessage);
+			}
 		}
 		console.log("Received message:", text);
 	}
