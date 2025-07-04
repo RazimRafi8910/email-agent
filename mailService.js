@@ -16,7 +16,7 @@ async function sendEmail(emailTo, subject, body) {
             subject: subject,
             text: body,
         });
-        console.log(response);
+        console.log(response.messageId);
         return true
     } catch (error) {
         console.error(error);
