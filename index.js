@@ -35,6 +35,11 @@ app.post("/webhook", async (req, res) => {
 	const change = entry?.changes?.[0];
 	const message = change?.value?.messages?.[0];
 
+	if (message.from != '918848764715') {
+		await sendMessage(`message from unkown ${message.from}`);
+		return res.statusCode(200);
+	}
+
 	if (message && message.type === "text") {
 		const text = message.text?.body;
 		if (text == "Hi" || text == "Hello" || text.length < 15) {
