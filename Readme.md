@@ -14,7 +14,7 @@ Email Agent is a tool designed to automate and manage email-related tasks effici
 Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/email-agent.git
+git clone https://github.com/RazimRafi8910/email-agent.git
 cd email-agent
 ```
 

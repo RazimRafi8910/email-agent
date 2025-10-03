@@ -35,8 +35,10 @@ app.post("/webhook", async (req, res) => {
 	const change = entry?.changes?.[0];
 	const message = change?.value?.messages?.[0];
 
-	if (message.from != process.env.PHONE_NO) {
-		await sendMessage(`message from unkown ${message.from}`);
+	// for debug
+	console.log(message)
+	if (message?.from != process.env.PHONE_NO) {
+		await sendMessage(`message from unkown ${message?.from}`);
 		return res.statusCode(200);
 	}
 
