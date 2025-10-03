@@ -4,7 +4,7 @@ import { createTransport } from 'nodemailer';
 const transporter = createTransport({
     service: 'gmail',
     auth: {
-        user: 'gadgetstorewebsite@gmail.com',
+        user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS_KEY
     }
 });

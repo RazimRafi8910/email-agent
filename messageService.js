@@ -4,7 +4,7 @@ const token = process.env.API_KEY;
 async function sendWelcomeMessage() {
     const payload = {
 		messaging_product: "whatsapp",
-		to: "918848764715",
+		to: process.env.PHONE_NO,
 		type: "text",
 		text: {
 			body: "welcome to Email Ai Agent \n you can generate and send email by just messaging here \n formate: \n subject,reciver email,sender name,reciver name or possition,format:(formal/casual) prompt for generating email \n "
@@ -31,7 +31,7 @@ async function sendMessage(content) {
 	try {
 		const payload = {
 		messaging_product: "whatsapp",
-		to: "918848764715",
+		to: process.env.PHONE_NO,
 		type: "text",
 		text: {
 			body: content,
@@ -49,7 +49,7 @@ async function sendMessage(content) {
 				body:JSON.stringify(payload),
 			}
 		);
-		
+        
 		const response = await result.json();
 		console.log(response);
 		return response

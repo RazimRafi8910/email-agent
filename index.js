@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/webhook", async (req, res) => {
-	const VERIFY_TOKEN = "emailfromme";
+	const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 	const mode = req.query["hub.mode"];
 	const token = req.query["hub.verify_token"];
 	const challenge = req.query["hub.challenge"];
@@ -35,7 +35,7 @@ app.post("/webhook", async (req, res) => {
 	const change = entry?.changes?.[0];
 	const message = change?.value?.messages?.[0];
 
-	if (message.from != '918848764715') {
+	if (message.from != process.env.PHONE_NO) {
 		await sendMessage(`message from unkown ${message.from}`);
 		return res.statusCode(200);
 	}
