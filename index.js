@@ -39,7 +39,7 @@ app.post("/webhook", async (req, res) => {
 		if (message?.from == undefined || message?.from != process.env.PHONE_NO) {
 			//await sendMessage(`message from unkown ${message?.from}`);
 			console.log(message);
-			res.sendStatus(200);
+			res.status(200)
 			return
 		}
 
@@ -61,10 +61,10 @@ app.post("/webhook", async (req, res) => {
 
 		if (body.object) {
 			console.log("ok, done")
-			return res.sendStatus(200)
+			return res.status(200)
 		} else {
 			console.log("done")
-			return res.sendStatus(200);
+			return res.status(200);
 		}
 	} catch (error) {
 		console.log(error)

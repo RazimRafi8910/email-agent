@@ -2,11 +2,15 @@ import { createTransport } from 'nodemailer';
 
 
 const transporter = createTransport({
-    service: 'gmail',
+     host: "smtp.gmail.com",
+    port: 465,
+    secure: true,
     auth: {
         user: process.env.EMAIL,
         pass: process.env.EMAIL_PASS_KEY
-    }
+    },
+    logger: true,
+    debug: true
 });
 
 async function sendEmail(emailTo, subject, body) {
