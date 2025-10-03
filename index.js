@@ -40,6 +40,7 @@ app.post("/webhook", async (req, res) => {
 			//await sendMessage(`message from unkown ${message?.from}`);
 			console.log(message);
 			res.sendStatus(200);
+			return
 		}
 
 		if (message && message.type === "text") {
