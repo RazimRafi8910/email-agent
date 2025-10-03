@@ -39,7 +39,7 @@ async function sendMessage(content) {
 		}
 
 		const result =await fetch(
-			"https://graph.facebook.com/v22.0/714727608389125/messages",
+			"https://graph.facebook.com/v22.0/836345549557531/messages",
 			{
 				method:"POST",
 				headers: {
