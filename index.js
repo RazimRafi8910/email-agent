@@ -30,39 +30,44 @@ app.get("/webhook", async (req, res) => {
 });
 
 app.post("/webhook", async (req, res) => {
-	const body = req.body;
-	const entry = req.body.entry?.[0];
-	const change = entry?.changes?.[0];
-	const message = change?.value?.messages?.[0];
+	try {
+		const body = req.body;
+		const entry = req.body.entry?.[0];
+		const change = entry?.changes?.[0];
+		const message = change?.value?.messages?.[0];
 
-	// for debug
-	console.log(body)
-	if (message?.from == undefined || message?.from != process.env.PHONE_NO) {
-		await sendMessage(`message from unkown ${message?.from}`);
-		return res.sendStatus(200);
-	}
-
-	if (message && message.type === "text") {
-		const text = message.text?.body;
-		if (text == "Hi" || text == "Hello" || text.length < 15) {
-			await sendWelcomeMessage();
-		} else {
-			//logic for LLM email creation
-			const response = await generateEmail(text);
-			const status = await sendEmail(response.to, response.subject, response.body);
-			if (status) {
-				const resultMessage = `email sended to ${response.to} from your email \n email: \n ${response.body}`
-				await sendMessage(resultMessage);
-			}
+		// for debug
+		console.log(body)
+		if (message?.from == undefined || message?.from != process.env.PHONE_NO) {
+			await sendMessage(`message from unkown ${message?.from}`);
+			return res.status(200);
 		}
-		console.log("Received message:", text);
-	}
 
-	if (body.object) {
-		return res.sendStatus(200);
-	} else {
-		console.log("done")
-		return res.sendStatus(200);
+		if (message && message.type === "text") {
+			const text = message.text?.body;
+			if (text == "Hi" || text == "Hello" || text.length < 15) {
+				await sendWelcomeMessage();
+			} else {
+				//logic for LLM email creation
+				const response = await generateEmail(text);
+				const status = await sendEmail(response.to, response.subject, response.body);
+				if (status) {
+					const resultMessage = `email sended to ${response.to} from your email \n email: \n ${response.body}`
+					await sendMessage(resultMessage);
+				}
+			}
+			console.log("Received message:", text);
+		}
+
+		if (body.object) {
+			return res.sendStatus(200);
+		} else {
+			console.log("done")
+			return res.sendStatus(200);
+		}
+	} catch (error) {
+		console.log(error)
+		return res.status(200)
 	}
 });
 
