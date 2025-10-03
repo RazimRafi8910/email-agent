@@ -59,9 +59,10 @@ app.post("/webhook", async (req, res) => {
 	}
 
 	if (body.object) {
-		res.sendStatus(200);
+		return res.sendStatus(200);
 	} else {
-		res.sendStatus(404);
+		console.log("done")
+		return res.sendStatus(404);
 	}
 });
 
