@@ -36,11 +36,11 @@ app.post("/webhook", async (req, res) => {
 	const message = change?.value?.messages?.[0];
 
 	// for debug
-	console.log(message)
-	// if (message?.from != process.env.PHONE_NO) {
-	// 	await sendMessage(`message from unkown ${message?.from}`);
-	// 	return res.statusCode(200);
-	// }
+	console.log(body)
+	if (message?.from == undefined || message?.from != process.env.PHONE_NO) {
+		await sendMessage(`message from unkown ${message?.from}`);
+		return res.statusCode(200);
+	}
 
 	if (message && message.type === "text") {
 		const text = message.text?.body;
