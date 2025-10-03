@@ -35,11 +35,12 @@ app.post("/webhook", async (req, res) => {
 		const entry = req.body.entry?.[0];
 		const change = entry?.changes?.[0];
 		const message = change?.value?.messages?.[0];
+		res.sendStatus(200)
 
 		if (message?.from == undefined || message?.from != process.env.PHONE_NO) {
 			//await sendMessage(`message from unkown ${message?.from}`);
 			console.log(message);
-			return res.sendStatus(200);
+			return
 		}
 
 		if (message && message.type === "text") {
@@ -60,10 +61,10 @@ app.post("/webhook", async (req, res) => {
 
 		if (body.object) {
 				console.log("ok, done")
-				return res.sendStatus(200);
+				return
 		} else {
 				console.log("done")
-				return res.sendStatus(200);
+				return
 		}
 	} catch (error) {
 		console.log(error)
