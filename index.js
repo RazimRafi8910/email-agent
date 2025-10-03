@@ -39,7 +39,7 @@ app.post("/webhook", async (req, res) => {
 	console.log(body)
 	if (message?.from == undefined || message?.from != process.env.PHONE_NO) {
 		await sendMessage(`message from unkown ${message?.from}`);
-		return res.statusCode(200);
+		return res.sendStatus(200);
 	}
 
 	if (message && message.type === "text") {
