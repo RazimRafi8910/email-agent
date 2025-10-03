@@ -7,7 +7,7 @@ async function sendWelcomeMessage() {
 		to: process.env.PHONE_NO,
 		type: "text",
 		text: {
-			body: "welcome to Email Ai Agent \n you can generate and send email by just messaging here \n formate: \n subject,reciver email,sender name,reciver name or possition,format:(formal/casual) prompt for generating email \n "
+			body: "Welcome to Email AI Agent!\n\nI can help you generate and send emails directly from this chat.\n\nTo create an email, send a single message with these fields separated by commas:\nsubject, recipient email, sender name, recipient name/position, tone (formal/casual), and your prompt or details.\n\nExample:\nOrder delay refund,customer@example.com,Alex Gomez,Customer Support Manager,formal,Please write a polite refund request mentioning order #12345.\n\nI'll generate the email text and send it for you. Reply with 'help' to see this again."
 		},
     };
 	const result =await fetch(
